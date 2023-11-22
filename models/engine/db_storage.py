@@ -10,6 +10,8 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+
+
 class DBStorage:
     """This class manages the database storage for hbnb"""
     __engine = None
@@ -70,6 +72,7 @@ class DBStorage:
     def reload(self):
         """Create all tables in the database and create the session"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
