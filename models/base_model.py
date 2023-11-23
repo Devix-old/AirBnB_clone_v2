@@ -7,7 +7,6 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-
 class BaseModel:
     """A base class for all hbnb models"""
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
@@ -16,7 +15,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         '''
-            public instance attributes.
+            Initialize public instance attributes.
         '''
         if len(kwargs) == 0:
             self.id = str(uuid.uuid4())
@@ -41,19 +40,19 @@ class BaseModel:
                     setattr(self, key, val)
 
     def __str__(self):
-        """Returns a string repr of instance"""
+        """Returns a string representation of the instance"""
         cls_name = type(self).__name__
         return '[{}] ({}) {}'.format(cls_name, self.id, self.__dict__)
 
     def save(self):
-        """updated_at with current time and saves the instance"""
+        """Updates updated_at with current time and saves the instance"""
         from models import storage
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
 
     def to_dict(self):
-        """convert to dict"""
+        """Convert instance into dict format"""
         dictionary = dict(self.__dict__)
         dictionary['__class__'] = type(self).__name__
         dictionary['created_at'] = self.created_at.isoformat()
