@@ -16,7 +16,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         '''
-            Initialize public instance attributes.
+            public instance attributes.
         '''
         if len(kwargs) == 0:
             self.id = str(uuid.uuid4())
@@ -41,19 +41,19 @@ class BaseModel:
                     setattr(self, key, val)
 
     def __str__(self):
-        """Returns a string representation of the instance"""
+        """Returns a string repr of instance"""
         cls_name = type(self).__name__
         return '[{}] ({}) {}'.format(cls_name, self.id, self.__dict__)
 
     def save(self):
-        """Updates updated_at with current time and saves the instance"""
+        """updated_at with current time and saves the instance"""
         from models import storage
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
 
     def to_dict(self):
-        """Convert instance into dict format"""
+        """convert to dict"""
         dictionary = dict(self.__dict__)
         dictionary['__class__'] = type(self).__name__
         dictionary['created_at'] = self.created_at.isoformat()

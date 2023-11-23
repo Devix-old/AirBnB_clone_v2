@@ -1,18 +1,21 @@
 #!/usr/bin/python3
-"""This module defines a class Amenity"""
+'''the Amenity module'''
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Table, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from os import getenv
+
+storage_type = getenv("HBNB_TYPE_STORAGE")
 
 
 class Amenity(BaseModel, Base):
-    """This class defines an Amenity by various attributes"""
+    '''the Amenities class.'''
     __tablename__ = 'amenities'
-    name = Column(String(128), nullable=False)
-    
-    # Define the many-to-many relationship with Place
-    place_amenities = relationship(
-        'Place',
-        secondary='place_amenity',
-        back_populates='amenities'
-    )
+    if storage_type == 'db':
+        from models.place import place_amenity
+        name = Column(String(128), nullable=False)
+        place_amenities = relationship(
+            "Place", secondary=place_amenity,
+                                       back_populates="amenities")
+    else:
+        name = ""
