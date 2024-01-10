@@ -14,14 +14,8 @@ sudo echo '<html>
 link_path="/data/web_static/current"
 target_path="/data/web_static/releases/test/"
 
-# Remove the symbolic link if it already exists
-if [ -L "$link_path" ]; then
-    sudo rm "$link_path"
-fi
-
-# Create a new symbolic link
-sudo ln -s "$target_path" "$link_path"
-sudo chown -R $USER:$USER /data/
+sudo ln -fs "$target_path" "$link_path"
+sudo chown -hR ubuntu:$ubuntu /data/
 sudo echo 'server {
     listen 80 default_server;
     listen [::]:80 default_server;
