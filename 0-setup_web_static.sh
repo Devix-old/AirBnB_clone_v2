@@ -3,9 +3,14 @@
 
 sudo apt-get update -y
 sudo apt-get install nginx -y
-sudo mkdir -p /data/web_static/releases/test/
-sudo mkdir /data/web_static/shared/
-sudo echo "I'm from nginx server" > /data/web_static/releases/test/index.html
+mkdir -p -m=755 /data/web_static/{releases/test,shared} || exit 0
+sudo echo '<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>' > /data/web_static/releases/test/index.html
 link_path="/data/web_static/current"
 target_path="/data/web_static/releases/test/"
 
@@ -36,4 +41,4 @@ sudo echo 'server {
     }
 }' > /etc/nginx/sites-available/default
 sudo service nginx restart
-
+exit 0
