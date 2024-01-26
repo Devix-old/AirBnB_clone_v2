@@ -35,8 +35,8 @@ def py_route(text):
 
 @app.route('/number/<n>', strict_slashes=False)
 def n_route(n):
+    """route /c/<text> """
     return '{} is a number'.format(n)
-
 
 
 if __name__ == '__main__':
