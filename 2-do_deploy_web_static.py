@@ -35,11 +35,13 @@ def do_deploy(archive_path):
         run('rm /tmp/{}'.format(archive_filename))
 
         # Move the contents of the archive to the release folder
-        run('mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/'
+        run('''mv /data/web_static/releases/{}/web_static/*
+    /data/web_static/releases/{}/'''
             .format(archive_name, archive_name))
 
         # Remove the web_static directory within the release folder
-        run('rm -rf /data/web_static/releases/{}/web_static'.format(archive_name))
+        run('rm -rf /data/web_static/releases/{}/web_static'.format(
+            archive_name))
 
         # Remove the current symbolic link
         run('rm -rf /data/web_static/current')
@@ -62,4 +64,3 @@ if __name__ == "__main__":
     result = do_deploy(archive_path)
     if not result:
         print("Deployment failed.")
-
