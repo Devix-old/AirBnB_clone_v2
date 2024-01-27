@@ -10,13 +10,6 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def teardown_appcontext(error):
-    """Close the database session after each request"""
-    if storage:
-        storage.close()
-
-
 @app.route('/states_list', strict_slashes=False)
 def states_list():
     """Display a list of states"""
@@ -30,6 +23,13 @@ def cities_by_states():
     states = storage.all(State).values()
     return render_template(
         '8-cities_by_states.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown_appcontext(error):
+    """Close the database session after each request"""
+    if storage:
+        storage.close()
 
 
 if __name__ == "__main__":
