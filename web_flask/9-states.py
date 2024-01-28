@@ -26,7 +26,11 @@ def states_list():
 @app.route('/states/<id>', strict_slashes=False)
 def state_cities(id):
     """Display a HTML page with information about a specific State."""
-    state = storage.get(State, id)
+    state = None
+    states = storage.all(State).values()
+    for s in states:
+        if s.id == id:
+            state = s
     if state:
         return render_template('9-states.html', state=state)
     return render_template('9-states.html', not_found=True)
