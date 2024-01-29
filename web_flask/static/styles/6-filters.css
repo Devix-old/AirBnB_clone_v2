@@ -23,32 +23,35 @@
 	vertical-align: middle;
 	height: 100%;
 	float: left;
-    width: 25%;
+        width: 25%;
 
 	line-height: 20px;
 }
 
 .popover {
-	list-style-type: none;
-	display: none;
 	background-color: #FAFAFA;
 	width: 100%;
-
 	margin-left: -1px;
 	margin-top: 8px;
 	padding: 25px 0px;
 	overflow-y: auto;
+	max-height: 300px;
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
-}
-
-.locations:hover .popover {
-	display: inline-block;
-}
-
-.filter_amenities:hover .popover {
-	display: inline-block;
-}
+	display: none;
+    }
+    
+    .locations .popover,
+    .filter_amenities .popover {
+	display: none;
+    }
+    .amenities:hover > .popover {
+	display: block;
+    }
+    .locations:hover .popover,
+    .filter_amenities:hover .popover {
+	display: block;
+    }
 
 ul {
 	list-style-type: none;
@@ -79,7 +82,9 @@ h4 {
 	margin-bottom: 5px;
 	padding-left: 45px;
 }
-
+.amenities {
+	margin-left: 245px;
+}
 button {
 	color: #FFFFFF;
 	font-size: 18px;

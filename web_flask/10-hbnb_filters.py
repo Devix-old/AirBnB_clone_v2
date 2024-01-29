@@ -20,20 +20,10 @@ def teardown_appcontext(exception):
 def hbnb_filters():
     """Display hbnb_filters page."""
     states = storage.all(State).values()
-    return render_template('10-hbnb_filters.html', states=states)
-
-
-@app.route('/states/<id>', strict_slashes=False)
-def state_cities(id):
-    """Display a HTML page with information about a specific State."""
-    state = None
-    states = storage.all(State).values()
-    for s in states:
-        if s.id == id:
-            state = s
-    if state:
-        return render_template('9-states.html', state=state)
-    return render_template('9-states.html', not_found=True)
+    if states:
+        return render_template('10-hbnb_filters.html', states=states)
+    else:
+        return render_template('10-hbnb_filters.html', not_found=True)
 
 
 if __name__ == "__main__":
